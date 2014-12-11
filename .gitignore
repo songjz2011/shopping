@@ -1,0 +1,6 @@
+*.class
+*.project
+**/logs
+*.settings
+**/eclipse
+
