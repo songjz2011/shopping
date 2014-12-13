@@ -1,7 +1,6 @@
-*.class
+/target/
 *.project
 **/logs
 *.settings
 **/eclipse
-*.gitignore.swp
 *.classpath
