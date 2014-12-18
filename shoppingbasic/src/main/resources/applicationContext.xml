@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd"
+	default-lazy-init="true">
+
+	<description>Spring公共配置 </description>
+
+	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
+	<context:component-scan base-package="com.nfschina.fourjoy">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+	<!-- 启动对@Aspect注解的支持 -->
+	<aop:aspectj-autoproxy />
+
+	<!--
+		MergingPersistenceUnitManager reads all persistence.xml files in the        
+		classpath and merges them to one single virtual persistence.xml.         
+		In order to operate properly, all persistence.xml have to define the same        
+		persistence unit name.   
+	 -->
+	<bean id="persistenceUnitManager"
+		class="org.springframework.data.jpa.support.MergingPersistenceUnitManager">
+		<property name="persistenceXmlLocations">
+			<list>
+				<value>classpath*:META-INF/persistence.xml</value>
+			</list>
+		</property>
+		<property name="defaultDataSource" ref="dataSource"></property>
+	</bean>
+
+	<!-- Jpa Entity Manager 配置 -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="persistenceUnitName" value="defaultPU" />
+		<property name="persistenceUnitManager" ref="persistenceUnitManager"/>
+		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter" />
+		<property name="jpaDialect">
+            <bean class="com.nfschina.fourjoy.infrastructure.support.hibernate.HibernateJpaReadonlySupportDialect" />
+        </property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+				<prop key="hibernate.search.default.directory_provider">org.hibernate.search.store.impl.FSDirectoryProvider</prop>
+				<prop key="hibernate.search.default.indexBase">./build/indexes</prop>
+				<prop key="hibernate.search.lucene_version">LUCENE_35</prop>
+				
+				<!-- for hibernate ejb event -->
+				<prop key="hibernate.ejb.event.create">
+					com.nfschina.fourjoy.infrastructure.cache.listener.ejb.PersistEventListener
+				</prop>
+				<prop key="hibernate.ejb.event.post-update">
+					com.nfschina.fourjoy.infrastructure.cache.listener.ejb.PostUpdateEventListener
+				</prop>
+                <prop key="hibernate.ejb.event.post-collection-update">
+                    com.nfschina.fourjoy.infrastructure.cache.listener.ejb.PostUpdateEventListener
+                </prop>
+				<prop key="hibernate.ejb.event.post-delete">
+					com.nfschina.fourjoy.infrastructure.cache.listener.ejb.PostDeleteEventListener
+				</prop>
+                <prop key="hibernate.ejb.event.delete">
+                    com.nfschina.fourjoy.infrastructure.cache.listener.ejb.DeleteEventListener
+                </prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="hibernateJpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		
+	<!-- 将DispatcherServlet.processHandlerException处理的异常从debug级别转为error记入log -->
+	<bean class="com.nfschina.fourjoy.infrastructure.exception.CustomHandlerExceptionResolver" />
+
+	<!-- Spring Data Jpa配置 -->
+	<jpa:repositories base-package="com.nfschina.fourjoy"
+		transaction-manager-ref="transactionManager"
+		entity-manager-factory-ref="entityManagerFactory" />
+
+	<!-- Jpa 事务配置 -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager"
+		proxy-target-class="true" />
+	
+	<!-- JSR303 Validator定义 -->
+ 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+	
+	<bean id="springContextHolder" class="com.nfschina.fourjoy.infrastructure.spring.SpringContextHolder" lazy-init="false" />
+	
+	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" />
+	
+    <!-- 初始化缓存管理类
+    	如果需要缓存实体，添加实现类，实现cacheDeal、InitializeCache接口，然后在实体上加needclass的注释，
+    	并把需要缓存的实体加入到下面的集合
+     -->
+    <bean id="initializeCacheManager" class="com.nfschina.fourjoy.infrastructure.cache.EntityCahceInitializeManager">
+		<property name="cachedEntityClazzNameList">
+			<list>
+				<value>com.nfschina.fourjoy.security.model.Lessee</value>
+				<value>com.nfschina.fourjoy.security.model.UserGroup</value>
+				<value>com.nfschina.fourjoy.security.model.UserInfo</value>
+				<value>com.nfschina.fourjoy.project.model.Project</value>
+				<value>com.nfschina.fourjoy.security.model.UserReceiveEmailConfig</value>
+				<value>com.nfschina.fourjoy.security.model.UserUserGroupLessee</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- production/local development环境 -->
+	<beans profile="production,development">
+		<context:property-placeholder
+			ignore-unresolvable="true"
+			location="classpath*:/application.properties,
+          			  classpath*:/application.local.properties" />
+
+		<!-- 数据源配置, 使用应用中的C3P0数据库连接池 -->
+		<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+			<!-- Connection Info -->
+			<property name="driverClass" value="${jdbc.driver}" />
+			<property name="jdbcUrl" value="${jdbc.url}" />
+			<property name="user" value="${jdbc.username}" />
+			<property name="password" value="${jdbc.password}" />
+
+			<!-- Connection Pooling Info -->
+			<property name="minPoolSize"><value>5</value></property>
+			<property name="maxPoolSize"><value>3000</value></property>
+			<!--最大空闲时间,30分钟内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
+			<property name="maxIdleTime"><value>1800</value></property>
+			<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+			<property name="acquireIncrement"><value>5</value></property>
+			<!--用以控制数据源内加载的PreparedStatements数量。但由于预缓存的statements
+				属于单个connection而不是整个连接池。所以设置这个参数需要考虑到多方面的因素。
+				如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default: 0-->
+			<property name="maxStatements"><value>0</value></property>
+			<!--初始化时获取10个连接，取值应在minPoolSize与maxPoolSize之间。Default: 10 -->
+			<property name="initialPoolSize"><value>10</value></property>
+			<!--每30分钟检查所有连接池中的空闲连接。Default: 0 -->
+			<property name="idleConnectionTestPeriod"><value>1800</value></property>
+			<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 --> 
+			<property name="acquireRetryAttempts"><value>30</value></property>
+			<!--当连接池用完时客户端调用getConnection()后等待获取新连接的时间，超时后将抛出
+				SQLException,如设为0则无限期等待。单位毫秒。Default: 0 --> 
+			<property name="checkoutTimeout"><value>30000</value></property> 
+			<!--获取连接失败将会引起所有等待连接池来获取连接的线程抛出异常。但是数据源仍有效
+				保留，并在下次调用getConnection()的时候继续尝试获取连接。如果设为true，那么在尝试
+				获取连接失败后该数据源将申明已断开并永久关闭。Default: false-->
+			<property name="breakAfterAcquireFailure"><value>false</value></property>
+			<!--因性能消耗大请只在需要的时候使用它。如果设为true那么在每个connection提交的
+				时候都将校验其有效性。建议使用idleConnectionTestPeriod或automaticTestTable
+				等方法来提升连接测试的性能。Default: false -->
+			<property name="testConnectionOnCheckout"><value>false</value></property>
+            <!--默认为false，如果此参数设置为true，当所有连接用完的时候，会以堆栈信息显示哪些代码使用
+            	了连接。由于跟踪连接状态会产生额外的消耗，如果程序稳定，应该将此参数恢复为默认值false。-->
+          <property name="debugUnreturnedConnectionStackTraces"><value>false</value></property>
+          <property name="numHelperThreads"><value>3</value></property>
+		</bean>
+
+		<!-- 数据源配置,使用应用服务器的数据库连接池 -->
+		<!--<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/fourjoy" 
+			/> -->
+	</beans>
+
+	<!-- unit test环境 -->
+	<beans profile="test">
+		<context:property-placeholder
+			ignore-resource-not-found="true"
+			location="classpath*:/application.test.properties" />
+
+		<!-- 嵌入式内存中数据库 -->
+		<jdbc:embedded-database id="dataSource" type="H2" />
+
+		<!-- 初始化默认数据 -->
+		<bean class="com.nfschina.fourjoy.infrastructure.test.data.DataInitializer"
+			lazy-init="false">
+			<property name="dataSource" ref="dataSource" />
+			<property name="dataFile" value="/data/sample-data.xml" />
+		</bean>
+	</beans>
+	
+	<!-- functional test环境 -->
+	<beans profile="functional">
+		<context:property-placeholder ignore-resource-not-found="true"
+			location="classpath*:/application.test.properties,
+          			  classpath*:/application.functional.properties" />	
+
+		<!-- 简单data source -->
+		<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+			<property name="driverClass" value="${jdbc.driver}" />
+			<property name="url" value="${jdbc.url}" />
+			<property name="username" value="${jdbc.username}" />
+			<property name="password" value="${jdbc.password}" />
+		</bean>
+	</beans>
+</beans>

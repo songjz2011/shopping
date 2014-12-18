@@ -162,4 +162,10 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<modules>
+		<module>../shoppingutil</module>
+		<module>../shoppingbasic</module>
+		<module>../shoppingsystem</module>
+		<module>../shoppingweb</module>
+	</modules>
 </project>
