@@ -38,4 +38,15 @@ public class StringUtil {
     return !isBlank(obj);
   }
 
+  /**
+   * <pre>
+   * 获取换行符
+   * </pre>
+   * 
+   * @return
+   */
+  public static String getNewLine() {
+    return System.getProperty("line.separator");
+  }
+
 }

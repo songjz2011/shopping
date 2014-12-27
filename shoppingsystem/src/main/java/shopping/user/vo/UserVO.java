@@ -13,6 +13,11 @@ public class UserVO extends BasicVO {
   private String name;
 
   /**
+   * 密码
+   */
+  private String password;
+
+  /**
    * 电话
    */
   private String tel;
@@ -83,6 +88,14 @@ public class UserVO extends BasicVO {
 
   public void setAddress(String address) {
     this.address = address;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
 }

@@ -18,13 +18,13 @@
 		<aspectj.version>1.8.4</aspectj.version>
 
 		<log4j.version>1.2.17</log4j.version>
-		<slf4j.version>1.6.4</slf4j.version>
+		<slf4j.version>1.7.9</slf4j.version>
 
 		<fastjson.version>1.1.35</fastjson.version>
 		<junit.version>4.12</junit.version>
 		<servlet.api.version>2.5</servlet.api.version>
-
 		<mysql.version>5.1.30</mysql.version>
+		<javax.validation.version>1.1.0.Final</javax.validation.version>
 
 		<jdk.version>1.7</jdk.version>
 	</properties>
@@ -127,6 +127,33 @@
 				<version>${aspectj.version}</version>
 			</dependency>
 
+			<!-- javax.validation -->
+			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>${javax.validation.version}</version>
+			</dependency>
+			
+			
+			<!-- LOGGING begin -->
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${log4j.version}</version>
+			</dependency>
+			<!-- slf4j -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<!-- slf4j-log4j绑定 -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			
 		</dependencies>
 	</dependencyManagement>
 	<build>

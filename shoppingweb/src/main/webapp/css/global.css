@@ -1,0 +1,25 @@
+.header {
+	background-color: #303a40;
+	margin-bottom: 20px;
+}
+
+.footer {
+	background-color: #303a40;
+	color: #FFFFFF;
+}
+
+/**
+*{
+	color: #FFFFFF;
+}
+*/
+
+.logo {
+	float: left;
+	position: relative;
+}
+
+.active {
+	color: #FFFFFF;
+}
+

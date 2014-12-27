@@ -8,7 +8,9 @@
 	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 
 	<!-- 扫描java文件，进行注解，具体含义，请参见spring-context.xml -->
-	<context:component-scan base-package="shopping.**.controller" />
+	<context:component-scan base-package="shopping.**.controller">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+	</context:component-scan>
 
 	<!-- 定义全局的属性编辑器 使用了<mvc:annotation-driven />的时候，它 会自动注册DefaultAnnotationHandlerMapping 
 		与AnnotationMethodHandlerAdapter 两个bean。这时候第二种方式指定的全局属性编辑器就不会起作用了， 解决办法就是手动的添加上述bean， 
@@ -27,9 +29,16 @@
 	        <bean class="org.springframework.http.converter.StringHttpMessageConverter">  
 	             <constructor-arg value="UTF-8" />  
 	        </bean>  
-    	</mvc:message-converters>  
+    	</mvc:message-converters>
 	</mvc:annotation-driven>
-
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="shopping.basic.system.RequestLog"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
 	<!-- 对静态资源文件的访问 ，两种方式 mvc:resources 和 mvc:default-servlet-handler -->
 	<!-- 把mapping的URI注册到SimpleUrlHandlerMapping的urlMap中, key为mapping的URI pattern值, 
 		而value为ResourceHttpRequestHandler, 这样就巧妙的把对静态资源的访问由 HandlerMapping转到ResourceHttpRequestHandler处理并返回, 
@@ -42,13 +51,14 @@
 	<mvc:default-servlet-handler />
 
 	<!-- 首页 -->
+	<!-- 
 	<mvc:view-controller path="/" view-name="index" />
-
+	-->
 	<!-- 定义JSP： prefix前缀定义了webapp/page/目录（所以在controller中直接写page目录下的目录路径即可）； 
 		suffix后缀定义了文件的后缀，不用每次都写*.jsp -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/page/" />
-		<property name="suffix" value=".jsp" />
+		<property name="prefix" value="/model/" />
+		<property name="suffix" value=".html" />
 	</bean>
 </beans>

@@ -26,6 +26,11 @@ public class User extends BasicModel {
   private String name;
 
   /**
+   * 密码
+   */
+  private String password;
+
+  /**
    * 电话
    */
   private String tel;
@@ -127,6 +132,14 @@ public class User extends BasicModel {
 
   public void setSystemResource(boolean isSystemResource) {
     this.isSystemResource = isSystemResource;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
 }

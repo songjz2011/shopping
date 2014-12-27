@@ -9,13 +9,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shopping.basic.controller.BasicController;
 import shopping.user.dao.UserDao;
 import shopping.user.model.User;
+import shopping.user.vo.UserVO;
 import shopping.util.OperationResult;
 import shopping.util.Pager;
+import shopping.util.QueryBuilder;
 
 import com.alibaba.fastjson.JSON;
 
@@ -25,7 +29,7 @@ import com.alibaba.fastjson.JSON;
 @Controller
 @RequestMapping(value = "/users")
 @Transactional(readOnly = true)
-public class UserController {
+public class UserController extends BasicController {
 
   @Resource
   private UserDao userDao;
@@ -35,9 +39,31 @@ public class UserController {
     binder.setFieldDefaultPrefix("user.");
   }
 
+  @RequestMapping(value = "/login")
+  @ResponseBody
+  public String login(UserVO user) {
+    QueryBuilder query = new QueryBuilder(User.class);
+    query.add(null, "name", "=", user.getName());
+    query.add("and", "password", "=", user.getPassword());
+    User u = userDao.findOne(query.getQuery(), query.getParams());
+    UserVO vo = null;
+    if (u != null) {
+      vo = u.cloneToVO();
+    }
+    return OperationResult.success(vo);
+  }
+
+  /**
+   * <pre>
+   * 查询
+   * </pre>
+   * 
+   * @param pager
+   * @return
+   */
   @RequestMapping(value = "/list")
   @ResponseBody
-  public String list(Pager pager) {
+  public String list(UserVO user, Pager pager) {
     List<User> list = userDao.findAll();
     return JSON.toJSONString(list);
   }
@@ -48,6 +74,15 @@ public class UserController {
   public String save(@ModelAttribute(value = "user") User user) {
     userDao.save(user);
     return OperationResult.success(user.getId());
+  }
+
+  @Transactional(readOnly = false)
+  @RequestMapping(value = "/delete/{id}")
+  @ResponseBody
+  public String delete(@PathVariable Long id) {
+    User user = userDao.findById(id);
+    userDao.delete(user);
+    return OperationResult.success();
   }
 
 }

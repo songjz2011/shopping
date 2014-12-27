@@ -62,6 +62,23 @@ public abstract class BaseDao<T> {
     return (T) this.getCurrentSession().get(getClazz(), (Serializable) id);
   }
 
+  public T findOne(String hql) {
+    List<T> list = find(hql);
+    return getOne(list);
+  }
+
+  public T findOne(String hql, List<Object> params) {
+    List<T> list = find(hql, params);
+    return getOne(list);
+  }
+
+  private T getOne(List<T> list) {
+    if (list == null || list.isEmpty()) {
+      return null;
+    }
+    return list.get(0);
+  }
+
   /**
    * <pre>
    * 查询所有
