@@ -54,6 +54,46 @@ public class LoggerUtil {
     return LoggerFactory.getLogger(clazz);
   }
 
+  public static void warn(Throwable t) {
+    warn(parseLog(t));
+  }
+
+  public static void warn(String message) {
+    getLogger().warn(message);
+  }
+
+  public static void debug(Throwable t) {
+    debug(parseLog(t));
+  }
+
+  public static void debug(String message) {
+    getLogger().debug(message);
+  }
+
+  public static void info(Throwable t) {
+    info(parseLog(t));
+  }
+
+  public static void info(String message) {
+    getLogger().info(message);
+  }
+
+  public static void error(String message, Throwable t) {
+    getLogger().error(message, t);
+  }
+
+  public static void error(String message) {
+    getLogger().error(message);
+  }
+
+  public static void error(Throwable t) {
+    getLogger().error(t.getMessage(), t);
+  }
+
+  private static Logger getLogger() {
+    return LoggerFactory.getLogger("shopping");
+  }
+
   /**
    * 将指定的异常信息转换成字符串。
    * 

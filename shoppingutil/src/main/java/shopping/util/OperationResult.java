@@ -96,6 +96,16 @@ public class OperationResult {
   /**
    * 操作失败, 并补充失败原因.
    */
+  public static String fail(StatusCode statusCode) {
+    SimplePropertyPreFilter filter =
+        new SimplePropertyPreFilter("result", "msg", "code");
+    return JSON.toJSONString(new OperationResult(RESULT.FAIL, statusCode.label, null,
+        statusCode.code), filter);
+  }
+
+  /**
+   * 操作失败, 并补充失败原因.
+   */
   public static String fail(String msg, int code) {
     SimplePropertyPreFilter filter =
         new SimplePropertyPreFilter("result", "msg", "code");
@@ -139,7 +149,7 @@ public class OperationResult {
     totalPage = (recordSize - 1) / pageSize + 1;
   }
 
-  private enum RESULT {
+  public enum RESULT {
     /**
      * 操作成功
      */

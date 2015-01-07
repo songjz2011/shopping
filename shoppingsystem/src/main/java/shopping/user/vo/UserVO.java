@@ -8,9 +8,9 @@ import shopping.basic.vo.BasicVO;
 public class UserVO extends BasicVO {
 
   /**
-   * 姓名
+   * 登录名
    */
-  private String name;
+  private String loginId;
 
   /**
    * 密码
@@ -18,29 +18,50 @@ public class UserVO extends BasicVO {
   private String password;
 
   /**
+   * 姓名
+   */
+  private String name;
+
+  /**
+   * 性别
+   */
+  private String gender;
+
+  /**
    * 电话
    */
   private String tel;
 
   /**
-   * 省
+   * 邮箱
    */
-  private String province;
+  private String email;
 
   /**
-   * 市
+   * 是否删除
    */
-  private String city;
+  private boolean deleted;
 
   /**
-   * 区
+   * 是否是系统资源
    */
-  private String district;
+  private boolean isSystemResource;
 
-  /**
-   * 详细地址
-   */
-  private String address;
+  public String getLoginId() {
+    return loginId;
+  }
+
+  public void setLoginId(String loginId) {
+    this.loginId = loginId;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
   public String getName() {
     return name;
@@ -48,6 +69,14 @@ public class UserVO extends BasicVO {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getGender() {
+    return gender;
+  }
+
+  public void setGender(String gender) {
+    this.gender = gender;
   }
 
   public String getTel() {
@@ -58,44 +87,28 @@ public class UserVO extends BasicVO {
     this.tel = tel;
   }
 
-  public String getProvince() {
-    return province;
+  public String getEmail() {
+    return email;
   }
 
-  public void setProvince(String province) {
-    this.province = province;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
-  public String getCity() {
-    return city;
+  public boolean isDeleted() {
+    return deleted;
   }
 
-  public void setCity(String city) {
-    this.city = city;
+  public void setDeleted(boolean deleted) {
+    this.deleted = deleted;
   }
 
-  public String getDistrict() {
-    return district;
+  public boolean isSystemResource() {
+    return isSystemResource;
   }
 
-  public void setDistrict(String district) {
-    this.district = district;
-  }
-
-  public String getAddress() {
-    return address;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
+  public void setSystemResource(boolean isSystemResource) {
+    this.isSystemResource = isSystemResource;
   }
 
 }

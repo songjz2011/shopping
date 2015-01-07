@@ -133,8 +133,8 @@
 				<artifactId>validation-api</artifactId>
 				<version>${javax.validation.version}</version>
 			</dependency>
-			
-			
+
+
 			<!-- LOGGING begin -->
 			<dependency>
 				<groupId>log4j</groupId>
@@ -153,7 +153,15 @@
 				<artifactId>slf4j-log4j12</artifactId>
 				<version>${slf4j.version}</version>
 			</dependency>
-			
+
+			<!-- apache -->
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>1.10</version>
+			</dependency>
+
+
 		</dependencies>
 	</dependencyManagement>
 	<build>

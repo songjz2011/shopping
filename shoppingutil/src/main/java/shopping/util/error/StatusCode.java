@@ -6,10 +6,15 @@ package shopping.util.error;
  * @author songjz
  */
 public enum StatusCode {
-  // 0-100 系统级
+  // 0-200 系统级
   SUCCESS(0, "操作成功"),
   SYSTEM_ERROR(1, "系统错误"),
-  DATA_NOT_FOUND(2, "数据不存在");
+  DATA_NOT_FOUND(2, "数据不存在"),
+  SYSTEM_NOT_LOGIN(3, "请登录"),
+  SYSTEM_LOGIN_TIME_OUT(4, "登录超时，请重新登录"),
+
+  // 200 - 400 用户管理
+  USER_LOGIN_ERROR(100, "您输入的账户名和密码不匹配，请重新输入");
 
   public Integer code;
   public String label;

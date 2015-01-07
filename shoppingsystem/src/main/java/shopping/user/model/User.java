@@ -21,9 +21,9 @@ public class User extends BasicModel {
   private static final long serialVersionUID = 1757622108536761729L;
 
   /**
-   * 姓名
+   * 登录名
    */
-  private String name;
+  private String loginId;
 
   /**
    * 密码
@@ -31,29 +31,30 @@ public class User extends BasicModel {
   private String password;
 
   /**
+   * 姓名
+   */
+  private String name;
+
+  /**
+   * 性别
+   */
+  private String gender;
+
+  /**
    * 电话
    */
   private String tel;
 
   /**
-   * 省
+   * 邮箱
    */
-  private String province;
+  private String email;
 
   /**
-   * 市
+   * 是否删除
    */
-  private String city;
-
-  /**
-   * 区
-   */
-  private String district;
-
-  /**
-   * 详细地址
-   */
-  private String address;
+  @Column(columnDefinition = "BOOLEAN")
+  private boolean deleted;
 
   /**
    * 是否是系统资源
@@ -64,6 +65,7 @@ public class User extends BasicModel {
   public UserVO cloneToVO() {
     UserVO vo = new UserVO();
     BeanUtil.copySimpleProperties(this, vo);
+    vo.setPassword(null);
     return vo;
   }
 
@@ -78,12 +80,36 @@ public class User extends BasicModel {
     return vos;
   }
 
+  public String getLoginId() {
+    return loginId;
+  }
+
+  public void setLoginId(String loginId) {
+    this.loginId = loginId;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
   public String getName() {
     return name;
   }
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getGender() {
+    return gender;
+  }
+
+  public void setGender(String gender) {
+    this.gender = gender;
   }
 
   public String getTel() {
@@ -94,36 +120,20 @@ public class User extends BasicModel {
     this.tel = tel;
   }
 
-  public String getProvince() {
-    return province;
+  public String getEmail() {
+    return email;
   }
 
-  public void setProvince(String province) {
-    this.province = province;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
-  public String getCity() {
-    return city;
+  public boolean isDeleted() {
+    return deleted;
   }
 
-  public void setCity(String city) {
-    this.city = city;
-  }
-
-  public String getDistrict() {
-    return district;
-  }
-
-  public void setDistrict(String district) {
-    this.district = district;
-  }
-
-  public String getAddress() {
-    return address;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
+  public void setDeleted(boolean deleted) {
+    this.deleted = deleted;
   }
 
   public boolean isSystemResource() {
@@ -132,14 +142,6 @@ public class User extends BasicModel {
 
   public void setSystemResource(boolean isSystemResource) {
     this.isSystemResource = isSystemResource;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
   }
 
 }

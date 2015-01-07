@@ -1,6 +1,7 @@
 package shopping.basic.dao;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,13 +10,14 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import shopping.basic.model.BasicModel;
 import shopping.util.Pager;
 
 /**
  * @author songjz Dec 17, 2014
  */
 @SuppressWarnings("unchecked")
-public abstract class BaseDao<T> {
+public abstract class BasicDao<T extends BasicModel> {
 
   @Resource(name = "sessionFactory")
   private SessionFactory sessionFactory;
@@ -35,6 +37,11 @@ public abstract class BaseDao<T> {
    */
 
   public T save(T obj) {
+    if (obj.isNew()) {
+      if (obj.getCreateTime() == null) {
+        obj.setCreateTime(new Date());
+      }
+    }
     this.getCurrentSession().saveOrUpdate(obj);
     return obj;
   }
@@ -146,10 +153,21 @@ public abstract class BaseDao<T> {
    * 查询条目数
    * </pre>
    * 
+   * @return
+   */
+  public long count() {
+    return count("select count(*) from " + getClazz().getName());
+  }
+
+  /**
+   * <pre>
+   * 查询条目数
+   * </pre>
+   * 
    * @param hql
    * @return
    */
-  public Long count(String hql) {
+  public long count(String hql) {
     return count(hql, null);
   }
 
@@ -162,13 +180,17 @@ public abstract class BaseDao<T> {
    * @param params
    * @return
    */
-  public Long count(String hql, List<Object> params) {
+  public long count(String hql, List<Object> params) {
     Query q = this.getCurrentSession().createQuery(hql);
     if (params != null && !params.isEmpty()) {
       for (int i = 0; i < params.size(); i++) {
         q.setParameter(i, params.get(i));
       }
     }
-    return (Long) q.uniqueResult();
+    Object value = q.uniqueResult();
+    if (value == null) {
+      return 0;
+    }
+    return (Long) value;
   }
 }

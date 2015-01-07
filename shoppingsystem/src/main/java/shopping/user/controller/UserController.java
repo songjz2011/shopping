@@ -3,6 +3,7 @@ package shopping.user.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,8 @@ import shopping.user.vo.UserVO;
 import shopping.util.OperationResult;
 import shopping.util.Pager;
 import shopping.util.QueryBuilder;
+import shopping.util.StringUtil;
+import shopping.util.error.StatusCode;
 
 import com.alibaba.fastjson.JSON;
 
@@ -34,22 +37,23 @@ public class UserController extends BasicController {
   @Resource
   private UserDao userDao;
 
-  @InitBinder("user")
-  public void initBinderUser(WebDataBinder binder) {
-    binder.setFieldDefaultPrefix("user.");
-  }
+//  @InitBinder("user")
+//  public void initBinderUser(WebDataBinder binder) {
+//    binder.setFieldDefaultPrefix("user.");
+//  }
 
   @RequestMapping(value = "/login")
   @ResponseBody
-  public String login(UserVO user) {
+  public String login(@ModelAttribute("user") UserVO user, HttpServletRequest request) {
     QueryBuilder query = new QueryBuilder(User.class);
     query.add(null, "name", "=", user.getName());
-    query.add("and", "password", "=", user.getPassword());
+    String password = StringUtil.hexMD5(user.getPassword());
+    query.add("and", "password", "=", password);
     User u = userDao.findOne(query.getQuery(), query.getParams());
-    UserVO vo = null;
-    if (u != null) {
-      vo = u.cloneToVO();
+    if (u == null) {
+      return OperationResult.fail(StatusCode.USER_LOGIN_ERROR);
     }
+    UserVO vo = u.cloneToVO();
     return OperationResult.success(vo);
   }
 
@@ -81,7 +85,8 @@ public class UserController extends BasicController {
   @ResponseBody
   public String delete(@PathVariable Long id) {
     User user = userDao.findById(id);
-    userDao.delete(user);
+    user.setDeleted(true);
+    userDao.save(user);
     return OperationResult.success();
   }
 

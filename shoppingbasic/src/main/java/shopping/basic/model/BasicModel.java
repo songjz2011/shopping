@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 
 import shopping.basic.vo.BasicVO;
 
@@ -29,6 +30,14 @@ public abstract class BasicModel implements java.io.Serializable {
   private Date createTime;
 
   public abstract BasicVO cloneToVO();
+
+  @Transient
+  public boolean isNew() {
+    if (id == null) {
+      return true;
+    }
+    return false;
+  }
 
   public Long getId() {
     return id;

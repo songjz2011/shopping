@@ -32,7 +32,11 @@ function formSubmit() {
 		success : formSubmitResponse,
 		url : "users/login",
 		type : "post",
-		dataType : "json",
+		dataType : 'json',
+		error : function(XmlHttpRequest, textStatus, errorThrown) {
+			//alert(GlobalMessgege.request_error);
+			alert("请求失败");
+		},
 	};
 	$("#form").ajaxForm(options);
 }
@@ -41,6 +45,5 @@ function formSubmit() {
  * form提交回调
  */
 function formSubmitResponse(data) {
-	alert(data);
-	alert("提交成功");
+	_validateResponseJsonData(data);
 }

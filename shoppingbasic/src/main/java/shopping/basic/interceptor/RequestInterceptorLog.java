@@ -1,10 +1,5 @@
-package shopping.basic.system;
+package shopping.basic.interceptor;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
@@ -17,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import shopping.util.LoggerUtil;
 import shopping.util.StringUtil;
 
 /**
@@ -25,9 +19,10 @@ import shopping.util.StringUtil;
  * 
  * @author songjz Dec 22, 2014
  */
-public class RequestLog extends HandlerInterceptorAdapter {
+public class RequestInterceptorLog extends HandlerInterceptorAdapter {
 
-  private static String[] filterFile = { ".html", ".jsp", ".js", ".css", ".jpg", ".png", ".bmp" };
+  //private static String[] filterFile = { ".html", ".jsp", ".js", ".css", ".jpg", ".png", ".bmp" };
+  private static String[] filterFile = {".js", ".css", ".jpg", ".png", ".bmp" };
 
   private String mappingURL;// 利用正则映射到需要拦截的路径
   private int openingTime;
@@ -35,6 +30,7 @@ public class RequestLog extends HandlerInterceptorAdapter {
 
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
       throws Exception {
+    System.out.println("--------RequestInterceptorLog");
     if (StringUtil.isNotBlank(mappingURL)) {
       Calendar c = Calendar.getInstance();
       c.setTime(new Date());
@@ -45,7 +41,7 @@ public class RequestLog extends HandlerInterceptorAdapter {
         return false;
       }
     }
-    requestLog(request);
+    //requestLog(request);
     return true;
   }
 
@@ -103,21 +99,18 @@ public class RequestLog extends HandlerInterceptorAdapter {
   @Override
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
       Object handler, Exception ex) throws Exception {
-    File file = null;
-    OutputStream out = new FileOutputStream(file,true);
-
-
-
-    
-    OutputStream os = response.getOutputStream();
-    if(os != null) {
-      BufferedOutputStream bos = new BufferedOutputStream(os);
-    }
-    if(os instanceof ByteArrayOutputStream) {
-      String encoding = response.getCharacterEncoding();
-      LoggerUtil.info(getClass(), os.toString());
-      
-    }
+    // File file = null;
+    // OutputStream out = new FileOutputStream(file,true);
+    //
+    // OutputStream os = response.getOutputStream();
+    // if(os != null) {
+    // BufferedOutputStream bos = new BufferedOutputStream(os);
+    // }
+    // if(os instanceof ByteArrayOutputStream) {
+    // String encoding = response.getCharacterEncoding();
+    // LoggerUtil.info(getClass(), os.toString());
+    //
+    // }
   }
 
 }
