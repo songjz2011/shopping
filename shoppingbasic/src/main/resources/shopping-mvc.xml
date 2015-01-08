@@ -66,7 +66,7 @@
 		suffix后缀定义了文件的后缀，不用每次都写*.jsp -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/model/" />
+		<property name="prefix" value="/" />
 		<property name="suffix" value=".html" />
 	</bean>
 	

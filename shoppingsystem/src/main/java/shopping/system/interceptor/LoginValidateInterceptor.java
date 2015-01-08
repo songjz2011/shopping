@@ -8,12 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import shopping.system.constant.SystemConstants;
-import shopping.util.OperationResult;
-import shopping.util.constant.UtilConstants;
-import shopping.util.error.StatusCode;
 
 /**
- * 登录验证Aop
+ * 登录验证Interceptor
  * 
  * @author songjz Jan 4, 2015
  */
@@ -23,10 +20,8 @@ public class LoginValidateInterceptor extends HandlerInterceptorAdapter {
       throws Exception {
     HttpSession session = request.getSession();
     if (session.getAttribute(SystemConstants.sessionUserKey()) == null) {
-      if(request.getServletPath().contains("login.html")) {
-        return true;
-      }
-      request.getRequestDispatcher("/login.html").forward(request, response);
+      String contextPath = request.getContextPath();
+      response.sendRedirect(contextPath);
       return false;
     }
     return true;
