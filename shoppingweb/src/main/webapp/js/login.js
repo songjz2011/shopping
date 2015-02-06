@@ -34,8 +34,8 @@ function formSubmit() {
 		type : "post",
 		dataType : 'json',
 		error : function(XmlHttpRequest, textStatus, errorThrown) {
-			//alert(GlobalMessgege.request_error);
-			alert("请求失败");
+			alert(GlobalMessgege.request_error);
+			// alert("请求失败");
 		},
 	};
 	$("#form").ajaxForm(options);
@@ -45,5 +45,7 @@ function formSubmit() {
  * form提交回调
  */
 function formSubmitResponse(data) {
-	_validateResponseJsonData(data);
+	if (_validateResponseJsonData(data)) {
+		window.location.href = "./shopping_index.html";
+	}
 }

@@ -18,7 +18,7 @@ function _validateResponseJsonData(data) {
 		var msg = data.msg;
 		var typeMsg = typeof (msg);
 		if (typeMsg == "undefined" || (typeMsg == "string" && msg != "")) {
-			alert(msg + "----");
+			alert(msg);
 		}
 		return false;
 	}

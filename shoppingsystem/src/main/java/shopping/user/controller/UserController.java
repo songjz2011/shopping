@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import shopping.basic.controller.BasicController;
+import shopping.basic.service.SessionService;
+import shopping.system.constant.SystemConstants;
 import shopping.user.dao.UserDao;
 import shopping.user.model.User;
 import shopping.user.vo.UserVO;
@@ -35,11 +37,6 @@ public class UserController extends BasicController {
   @Resource
   private UserDao userDao;
 
-//  @InitBinder("user")
-//  public void initBinderUser(WebDataBinder binder) {
-//    binder.setFieldDefaultPrefix("user.");
-//  }
-
   @RequestMapping(value = "/login")
   @ResponseBody
   public String login(@ModelAttribute("user") UserVO user, HttpServletRequest request) {
@@ -52,6 +49,7 @@ public class UserController extends BasicController {
       return OperationResult.fail(StatusCode.USER_LOGIN_ERROR);
     }
     UserVO vo = u.cloneToVO();
+    SessionService.set(request.getSession(), SystemConstants.sessionUserKey(), vo);
     return OperationResult.success(vo);
   }
 

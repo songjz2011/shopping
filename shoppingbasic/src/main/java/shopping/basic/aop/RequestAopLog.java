@@ -36,9 +36,6 @@ public class RequestAopLog {
         HttpServletRequest request = sra.getRequest();
         requestLog(request);
         Object responseValue = getResponseLog(joinPoint);
-        if (responseValue != null) {
-          LoggerUtil.info(responseValue.toString());
-        }
         return responseValue;
       } catch (Throwable e) {
         LoggerUtil.error(e);
@@ -127,6 +124,7 @@ public class RequestAopLog {
     StringBuilder content = new StringBuilder();
     content.append("[Response Data]: ").append(newLine);
     content.append(result);
+    LoggerUtil.info(content.toString());
     return result;
   }
 

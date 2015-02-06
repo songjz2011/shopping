@@ -22,11 +22,8 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-<!-- 
-	<listener>
-		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
-	</listener>
- -->
+	<!-- <listener> <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class> 
+		</listener> -->
 	<servlet>
 		<servlet-name>springServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -70,4 +67,9 @@
 		<error-code>500</error-code>
 		<location>/error/500.html</location>
 	</error-page>
+
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
 </web-app>
