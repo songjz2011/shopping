@@ -1,0 +1,16 @@
+document.write("<header>");
+document.write("	<div class=\"navbar navbar-inverse navbar-static-top\" role=\"navigation\">");
+document.write("		<div class=\"container\">");
+document.write("			<div class=\"navbar-header\">");
+document.write("				<a class=\"navbar-brand\" href=\"/shoppingweb\">shopping</a>");
+document.write("			</div>");
+document.write("			<div class=\"collapse navbar-collapse\">");
+document.write("				<ul class=\"nav navbar-nav\">");
+document.write("					<li class=\"active\"><a href=\"#\">首页</a></li>");
+document.write("					<li><a href=\"#\">论坛</a></li>");
+document.write("					<li><a href=\"#\">消息</a></li>");
+document.write("				</ul>");
+document.write("			</div>");
+document.write("		</div>");
+document.write("	</div>");
+document.write("</header>");

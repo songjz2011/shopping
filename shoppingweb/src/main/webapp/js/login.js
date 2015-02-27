@@ -35,7 +35,6 @@ function formSubmit() {
 		dataType : 'json',
 		error : function(XmlHttpRequest, textStatus, errorThrown) {
 			alert(GlobalMessgege.request_error);
-			// alert("请求失败");
 		},
 	};
 	$("#form").ajaxForm(options);
