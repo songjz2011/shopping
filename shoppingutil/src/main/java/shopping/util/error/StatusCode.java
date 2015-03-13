@@ -13,8 +13,8 @@ public enum StatusCode {
   SYSTEM_NOT_LOGIN(3, "请登录"),
   SYSTEM_LOGIN_TIME_OUT(4, "登录超时，请重新登录"),
 
-  // 200 - 400 用户管理
-  USER_LOGIN_ERROR(100, "您输入的账户名和密码不匹配，请重新输入");
+  // 200 - 299 用户管理
+  USER_LOGIN_ERROR(200, "您输入的账户名和密码不匹配，请重新输入");
 
   public Integer code;
   public String label;

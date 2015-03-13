@@ -68,6 +68,7 @@
 		<location>/error/500.html</location>
 	</error-page>
 
+	<!-- 单位分钟 -->
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>

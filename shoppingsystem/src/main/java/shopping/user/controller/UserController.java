@@ -34,14 +34,29 @@ import com.alibaba.fastjson.JSON;
 @Transactional(readOnly = true)
 public class UserController extends BasicController {
 
+  private String sessionUserKey = SystemConstants.sessionUserKey();
+
   @Resource
   private UserDao userDao;
 
+  /**
+   * <pre>
+   * 登录
+   * </pre>
+   * 
+   * @param user
+   * @param request
+   * @return
+   */
   @RequestMapping(value = "/login")
   @ResponseBody
   public String login(@ModelAttribute("user") UserVO user, HttpServletRequest request) {
+    if (user != null
+        && (StringUtil.isBlank(user.getLoginId()) || StringUtil.isBlank(user.getPassword()))) {
+      return OperationResult.fail("请输入用户名|密码");
+    }
     QueryBuilder query = new QueryBuilder(User.class);
-    query.add(null, "name", "=", user.getName());
+    query.add(null, "loginId", "=", user.getLoginId());
     String password = StringUtil.hexMD5(user.getPassword());
     query.add("and", "password", "=", password);
     User u = userDao.findOne(query.getQuery(), query.getParams());
@@ -49,8 +64,23 @@ public class UserController extends BasicController {
       return OperationResult.fail(StatusCode.USER_LOGIN_ERROR);
     }
     UserVO vo = u.cloneToVO();
-    SessionService.set(request.getSession(), SystemConstants.sessionUserKey(), vo);
+    SessionService.set(request.getSession(), sessionUserKey, vo);
     return OperationResult.success(vo);
+  }
+
+  /**
+   * <pre>
+   * 退出
+   * </pre>
+   * 
+   * @param request
+   * @return
+   */
+  @RequestMapping(value = "/logout")
+  @ResponseBody
+  public String logout(HttpServletRequest request) {
+    SessionService.remove(request.getSession(), sessionUserKey);
+    return OperationResult.success();
   }
 
   /**

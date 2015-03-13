@@ -29,5 +29,5 @@ function _validateResponseJsonData(data) {
  * 获取请求返回的业务数据, 参数为：请求返回的数据
  */
 function _getResponseBizJsonData(data) {
-
+	return data.data;
 }

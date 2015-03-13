@@ -7,7 +7,7 @@ $(document).ready(function() {
 function initValidateForm() {
 	$("#form").validate({
 		rules : {
-			name : "required",
+			loginId : "required",
 			password : {
 				required : true,
 				minlength : 5
@@ -23,7 +23,9 @@ function initValidateForm() {
 	});
 }
 
-/** form提交 */
+/**
+ * form提交. error 类型：Function有以下三个参数：XMLHttpRequest 对象、错误信息、（可选）捕获的异常对象。
+ */
 function formSubmit() {
 	var options = {
 		beforeSubmit : function(arr, $form, options) {
@@ -45,6 +47,8 @@ function formSubmit() {
  */
 function formSubmitResponse(data) {
 	if (_validateResponseJsonData(data)) {
+		var user = _getResponseBizJsonData(data);
+		$.cookie("userName", user.name);
 		window.location.href = "./shopping_index.html";
 	}
 }

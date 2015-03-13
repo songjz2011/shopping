@@ -22,7 +22,7 @@ public class SessionService {
     }
     session.setAttribute(key, value);
   }
-
+  
   /**
    * <pre>
    * 从session中获取值
@@ -38,6 +38,15 @@ public class SessionService {
       return null;
     }
     return (T) session.getAttribute(key);
+  }
+  
+  /**
+   * <pre>移除对象</pre>
+   * @param session
+   * @param key
+   */
+  public static void remove(HttpSession session, String key) {
+    session.removeAttribute(key);
   }
 
 }
