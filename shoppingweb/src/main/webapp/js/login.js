@@ -49,6 +49,6 @@ function formSubmitResponse(data) {
 	if (_validateResponseJsonData(data)) {
 		var user = _getResponseBizJsonData(data);
 		$.cookie("userName", user.name);
-		window.location.href = "./shopping_index.html";
+		window.location.href = "./welcome.html";
 	}
 }
