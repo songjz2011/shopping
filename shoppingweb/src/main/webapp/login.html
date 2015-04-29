@@ -2,7 +2,32 @@
 <html>
 <head>
 <meta charset="utf-8">
+<!-- 
+viewport是网页默认的宽度和高度，上面这行代码的意思是，网页宽度默认等于屏幕宽度（width=device-width），
+原始缩放比例（initial-scale=1）为1.0，即网页初始大小占屏幕面积的100%
+-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 
+如果屏幕宽度小于400像素（max-device-width: 400px），就加载tinyScreen.css文件
+<link rel="stylesheet" media="screen and (max-device-width: 400px)" href="./component/bootstrap/css/bootstrap.min.css">
+
+media="screen and (min-width: 400px) and (max-device-width: 600px)"
+如果屏幕宽度在400像素到600像素之间，则加载smallScreen.css文件。
+也可以放置在 CSS文件中，@import url("tinyScreen.css") screen and (max-device-width: 400px);
+
+CSS 文件中的@media
+同一个CSS文件中，也可以根据不同的屏幕分辨率，选择应用不同的CSS规则。
+@media screen and (max-device-width: 400px) {
+　　　　.column {
+　　　　　　float: none;
+　　　　　　width:auto;
+　　　　}
+　　　　#sidebar {
+　　　　　　display:none;
+　　　　}
+　　}
+上面的代码意思是，如果屏幕宽度小于400像素，则column块取消浮动（float:none）、宽度自动调节（width:auto），sidebar块不显示（display:none）。
+-->
 <link rel="stylesheet" href="./component/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="./css/global.css">
 </head>

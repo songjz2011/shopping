@@ -5,3 +5,4 @@
 **/eclipse
 *.gitignore.swp
 *.classpath
+**/.gradle
