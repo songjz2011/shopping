@@ -1,6 +1,11 @@
 $(document).ready(function() {
 	initValidateForm();
 	$("#submitButton").on("click", formSubmit);
+	$(document).keydown(function(event) {
+		if(event.keyCode == 13){
+			formSubmit();
+		}
+	});
 });
 
 /** 初始化验证form */
