@@ -17,7 +17,7 @@
 			<mvc:exclude-mapping path="/**/*.css" />
 			<mvc:exclude-mapping path="/**/*.jpg" />
 			<mvc:exclude-mapping path="/**/*.bmp" />
-			<bean class="shopping.system.interceptor.LoginValidateInterceptor" />
+			<bean class="com.shopping.system.interceptor.LoginValidateInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 </beans>
