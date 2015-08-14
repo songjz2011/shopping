@@ -1,33 +1,47 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-	<artifactId>shoppingweb</artifactId>
-	<packaging>war</packaging>
+  <artifactId>shoppingweb</artifactId>
+  <packaging>war</packaging>
 
-	<name>shoppingweb</name>
-	<url>http://maven.apache.org</url>
+  <name>shoppingweb</name>
+  <url>http://maven.apache.org</url>
 
-	<parent>
-		<groupId>shopping</groupId>
-		<artifactId>shoppingparent</artifactId>
-		<version>1.0.0</version>
-	</parent>
+  <parent>
+    <groupId>shopping</groupId>
+    <artifactId>shoppingparent</artifactId>
+    <version>1.0.0</version>
+  </parent>
 
-	<build>
-		<finalName>shoppingweb</finalName>
-	</build>
+  <build>
+    <finalName>shoppingweb</finalName>
+  </build>
 
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>shopping</groupId>
-			<artifactId>shoppingsystem</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-	</dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>shopping</groupId>
+      <artifactId>shoppingsystem</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <!-- Spring Fox for API docs -->
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger1</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+    </dependency>
+  </dependencies>
 </project>

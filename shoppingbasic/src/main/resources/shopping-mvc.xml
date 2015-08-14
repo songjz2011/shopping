@@ -51,7 +51,10 @@
 	<!-- 把mapping的URI注册到SimpleUrlHandlerMapping的urlMap中, key为mapping的URI pattern值, 
 		而value为ResourceHttpRequestHandler, 这样就巧妙的把对静态资源的访问由 HandlerMapping转到ResourceHttpRequestHandler处理并返回, 
 		所以就支持classpath目录,jar包内静态资源的访问. -->
-	<!-- <mvc:resources location="/static/" mapping="/static/**" /> -->
+	<mvc:resources location="/component/" mapping="/**" />
+	<mvc:resources location="/js/" mapping="/**" />
+	<mvc:resources location="/images/" mapping="/**" />
+	<mvc:resources location="/require_page/" mapping="/require/**" />
 
 	<!-- 会把"/**" url,注册到SimpleUrlHandlerMapping的urlMap中,把对静态资源的访问由HandlerMapping转到 
 		org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler处理并返回. 

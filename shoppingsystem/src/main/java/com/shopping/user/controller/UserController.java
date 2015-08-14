@@ -1,5 +1,8 @@
 package com.shopping.user.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -28,6 +31,7 @@ import com.shopping.util.error.StatusCode;
 /**
  * @author songjz Dec 14, 2014
  */
+@Api(value = "系统管理-用户管理", produces = "application/json")
 @Controller
 @RequestMapping(value = "/users")
 @Transactional(readOnly = true)
@@ -47,6 +51,7 @@ public class UserController extends BasicController {
    * @param request
    * @return
    */
+  @ApiOperation(value = "用户登录", notes = "失败，返回响应错误码")
   @RequestMapping(value = "/login")
   @ResponseBody
   public String login(@ModelAttribute("user") UserVO user, HttpServletRequest request) {

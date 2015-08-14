@@ -6,3 +6,4 @@
 *.gitignore.swp
 *.classpath
 **/.gradle
+.DS_Store

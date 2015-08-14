@@ -21,7 +21,7 @@
         <property name="dataSource" ref="dataSource" />  
         <property name ="packagesToScan">
             <list>
-				<value>shopping.**.model</value>
+				<value>com.shopping.**.model</value>
 			</list>
 		</property>
         <property name="hibernateProperties">  

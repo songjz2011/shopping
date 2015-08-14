@@ -1,229 +1,247 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-	<groupId>shopping</groupId>
-	<artifactId>shoppingparent</artifactId>
-	<version>1.0.0</version>
-	<packaging>pom</packaging>
+  <groupId>shopping</groupId>
+  <artifactId>shoppingparent</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
 
-	<name>shoppingparent</name>
-	<url>http://maven.apache.org</url>
+  <name>shoppingparent</name>
+  <url>http://maven.apache.org</url>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- <spring.version>3.2.3.RELEASE</spring.version> -->
-		<spring.version>4.1.6.RELEASE</spring.version>
-		<hibernate.version>4.3.7.Final</hibernate.version>
-		<aspectj.version>1.8.4</aspectj.version>
-		<mybatis.version>3.3.0</mybatis.version>
-		<mybatis.spring.version>1.2.2</mybatis.spring.version>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- <spring.version>3.2.3.RELEASE</spring.version> -->
+    <spring.version>4.1.6.RELEASE</spring.version>
+    <hibernate.version>4.3.7.Final</hibernate.version>
+    <aspectj.version>1.8.4</aspectj.version>
+    <mybatis.version>3.3.0</mybatis.version>
+    <mybatis.spring.version>1.2.2</mybatis.spring.version>
+    <swagger.version>2.1.2</swagger.version>
 
-		<log4j.version>1.2.17</log4j.version>
-		<slf4j.version>1.7.9</slf4j.version>
+    <log4j.version>1.2.17</log4j.version>
+    <slf4j.version>1.7.9</slf4j.version>
 
-		<fastjson.version>1.1.35</fastjson.version>
-		<junit.version>4.12</junit.version>
-		<servlet.api.version>2.5</servlet.api.version>
-		<mysql.version>5.1.30</mysql.version>
-		<javax.validation.version>1.1.0.Final</javax.validation.version>
-		<commons-lang.version>2.6</commons-lang.version>
-		<commons-codec.version>1.10</commons-codec.version>
+    <fastjson.version>1.1.35</fastjson.version>
+    <junit.version>4.12</junit.version>
+    <servlet.api.version>2.5</servlet.api.version>
+    <mysql.version>5.1.30</mysql.version>
+    <javax.validation.version>1.1.0.Final</javax.validation.version>
+    <commons-lang.version>2.6</commons-lang.version>
+    <commons-codec.version>1.10</commons-codec.version>
 
-		<jdk.version>1.7</jdk.version>
-	</properties>
-	<dependencyManagement>
-		<dependencies>
-			<!-- junit -->
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit.version}</version>
-			</dependency>
+    <jdk.version>1.7</jdk.version>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <!-- junit -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+      </dependency>
 
-			<!-- json -->
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>fastjson</artifactId>
-				<version>${fastjson.version}</version>
-			</dependency>
+      <!-- json -->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>${fastjson.version}</version>
+      </dependency>
 
-			<!-- servlet workon compile -->
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>servlet-api</artifactId>
-				<version>${servlet.api.version}</version>
-				<scope>compile</scope>
-			</dependency>
+      <!-- servlet workon compile -->
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+        <version>${servlet.api.version}</version>
+        <scope>compile</scope>
+      </dependency>
 
-			<!-- spring start -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-webmvc</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context-support</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-test</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-jdbc</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-tx</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-orm</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-expression</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<!-- spring end -->
+      <!-- spring start -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context-support</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-orm</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-expression</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <!-- spring end -->
 
-			<!-- hibernate start -->
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-core</artifactId>
-				<version>${hibernate.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-entitymanager</artifactId>
-				<version>${hibernate.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-c3p0</artifactId>
-				<version>${hibernate.version}</version>
-			</dependency>
-			<!-- hibernate end -->
+      <!-- hibernate start -->
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>${hibernate.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-entitymanager</artifactId>
+        <version>${hibernate.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-c3p0</artifactId>
+        <version>${hibernate.version}</version>
+      </dependency>
+      <!-- hibernate end -->
 
-			<!-- mybatis start -->
-			<dependency>
-				<groupId>org.mybatis</groupId>
-				<artifactId>mybatis</artifactId>
-				<version>${mybatis.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.mybatis</groupId>
-				<artifactId>mybatis-spring</artifactId>
-				<version>${mybatis.spring.version}</version>
-			</dependency>
-			<!-- mybatis end -->
+      <!-- mybatis start -->
+      <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+        <version>${mybatis.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis-spring</artifactId>
+        <version>${mybatis.spring.version}</version>
+      </dependency>
+      <!-- mybatis end -->
 
-			<!-- data base -->
-			<dependency>
-				<groupId>mysql</groupId>
-				<artifactId>mysql-connector-java</artifactId>
-				<version>${mysql.version}</version>
-			</dependency>
+      <!-- data base -->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
+      </dependency>
 
-			<!-- aspectj -->
-			<dependency>
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjrt</artifactId>
-				<version>${aspectj.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjweaver</artifactId>
-				<version>${aspectj.version}</version>
-			</dependency>
+      <!-- aspectj -->
+      <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjrt</artifactId>
+        <version>${aspectj.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjweaver</artifactId>
+        <version>${aspectj.version}</version>
+      </dependency>
 
-			<!-- javax.validation -->
-			<dependency>
-				<groupId>javax.validation</groupId>
-				<artifactId>validation-api</artifactId>
-				<version>${javax.validation.version}</version>
-			</dependency>
-
-
-			<!-- LOGGING begin -->
-			<dependency>
-				<groupId>log4j</groupId>
-				<artifactId>log4j</artifactId>
-				<version>${log4j.version}</version>
-			</dependency>
-			<!-- slf4j -->
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			<!-- slf4j-log4j绑定 -->
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-log4j12</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-
-			<!-- apache -->
-			<dependency>
-				<groupId>commons-codec</groupId>
-				<artifactId>commons-codec</artifactId>
-				<version>${commons-codec.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-lang</groupId>
-				<artifactId>commons-lang</artifactId>
-				<version>${commons-lang.version}}</version>
-			</dependency>
+      <!-- javax.validation -->
+      <dependency>
+        <groupId>javax.validation</groupId>
+        <artifactId>validation-api</artifactId>
+        <version>${javax.validation.version}</version>
+      </dependency>
 
 
-		</dependencies>
-	</dependencyManagement>
-	<build>
-		<pluginManagement>
-			<plugins>
-				<!-- 构建源码包的插件 -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>2.4</version>
-					<executions>
-						<execution>
-							<phase>package</phase>
-							<goals>
-								<goal>jar-no-fork</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
+      <!-- LOGGING begin -->
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>${log4j.version}</version>
+      </dependency>
+      <!-- slf4j -->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <!-- slf4j-log4j绑定 -->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
 
-				<!-- compiler插件, 设定JDK版本 -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.2</version>
-					<configuration>
-						<encoding>${project.build.sourceEncoding}</encoding>
-						<source>${jdk.version}</source>
-						<target>${jdk.version}</target>
-						<showWarnings>true</showWarnings>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
-	<modules>
-		<module>../shoppingutil</module>
-		<module>../shoppingbasic</module>
-		<module>../shoppingsystem</module>
-		<module>../shopping_system</module>
-		<module>../shoppingweb</module>
-	</modules>
+      <!-- apache -->
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>${commons-codec.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>${commons-lang.version}}</version>
+      </dependency>
+
+      <!-- Spring Fox for API docs -->
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>${swagger.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger1</artifactId>
+        <version>${swagger.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>${swagger.version}</version>
+      </dependency>
+
+
+    </dependencies>
+  </dependencyManagement>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <!-- 构建源码包的插件 -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>2.4</version>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>jar-no-fork</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <!-- compiler插件, 设定JDK版本 -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.2</version>
+          <configuration>
+            <encoding>${project.build.sourceEncoding}</encoding>
+            <source>${jdk.version}</source>
+            <target>${jdk.version}</target>
+            <showWarnings>true</showWarnings>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+  <modules>
+    <module>../shoppingutil</module>
+    <module>../shoppingbasic</module>
+    <module>../shoppingsystem</module>
+    <module>../shopping_system</module>
+    <module>../shoppingweb</module>
+  </modules>
 </project>
