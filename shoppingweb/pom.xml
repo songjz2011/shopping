@@ -29,6 +29,11 @@
       <artifactId>shoppingsystem</artifactId>
       <version>${project.version}</version>
     </dependency>
+    
+    <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-jpa</artifactId>
+      </dependency>
 
     <!-- Spring Fox for API docs -->
     <dependency>
